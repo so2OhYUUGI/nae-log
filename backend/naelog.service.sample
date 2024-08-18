@@ -13,14 +13,14 @@ After=syslog.target network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/home/so2/Desktop
-ExecStart=/home/so2/.local/bin/uvicorn main:app --reload --host 0.0.0.0 -port 80
+WorkingDirectory=/nae-log
+ExecStart=/uvicorn main:app --reload --host 0.0.0.0 -port 80
 KillMode=process
 Restart=always
-User=so2
+User=[***]
 Group=root
 TimeoutStopSec=5
 StandardOutput=null
 
 [Install]
-WantedBy = multi-user.target
+WantedBy=multi-user.target
