@@ -1,49 +1,70 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby Minimal TypeScript Starter
-</h1>
+# NaeLOG Frontend Setup Guide
 
-## 🚀 Quick start
+This guide provides instructions for setting up the frontend of the NaeLOG application using Gatsby, TypeScript, and Material-UI.
 
-1.  **Create a Gatsby site.**
+## Prerequisites
 
-    Use the Gatsby CLI to create a new site, specifying the minimal TypeScript starter.
+Ensure you have the following installed on your system:
+- Node.js (v14 or later recommended)
+- npm (v6 or later)
 
-    ```shell
-    # create a new Gatsby site using the minimal TypeScript starter
-    npm init gatsby -- -ts
-    ```
+## Initial Setup
 
-2.  **Start developing.**
+1. **Create a Gatsby project with TypeScript:**
 
-    Navigate into your new site’s directory and start it up.
+   First, create a new Gatsby project using the following command:
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+   ```bash
+   npm init gatsby nae-log -- -y -ts
+   cd nae-log
+   ```
 
-3.  **Open the code and start customizing!**
+   The above command will create a new Gatsby project with TypeScript support.
 
-    Your site is now running at http://localhost:8000!
+2. **Install Material-UI and related packages:**
 
-    Edit `src/pages/index.tsx` to see your site update in real-time!
+   Install Material-UI and the required styling packages using the following command:
 
-4.  **Learn more**
+   ```bash
+   npm install @mui/material @emotion/react @emotion/styled gatsby-plugin-material-ui@next --force
+   ```
 
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Tutorials](https://www.gatsbyjs.com/docs/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Guides](https://www.gatsbyjs.com/docs/how-to/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
+   These packages include:
+   - `@mui/material`: Material-UI components
+   - `@emotion/react`: CSS-in-JS library for styling
+   - `@emotion/styled`: Styled components for Material-UI
+   - `gatsby-plugin-material-ui@next`: Gatsby plugin for integrating Material-UI
 
-## 🚀 Quick start (Netlify)
 
-Deploy this starter with one click on [Netlify](https://app.netlify.com/signup):
+## Testing the Setup
 
-[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-minimal-ts)
+To verify that everything is set up correctly:
+
+1. Create a simple Material-UI component, such as a button, and check that it renders properly:
+
+   ```typescript
+   import React from "react";
+   import Button from "@mui/material/Button";
+
+   const TestButton: React.FC = () => {
+     return (
+       <Button variant="contained" color="primary">
+         Test Button
+       </Button>
+     );
+   };
+
+   export default TestButton;
+   ```
+
+2. Start the Gatsby development server:
+
+   ```bash
+   gatsby develop
+   ```
+
+   Open your browser and navigate to `http://localhost:8000`. The button should be displayed with the defined theme.
+
+## Conclusion
+
+You have now set up the frontend environment for NaeLOG using Gatsby, TypeScript, and Material-UI. You're ready to start building the application's UI components.

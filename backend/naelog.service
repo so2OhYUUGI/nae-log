@@ -1,0 +1,26 @@
+##############################
+#
+# $sudo cp naelog.service /etc/systemd/system
+# sudo systemctl daemon-reload
+# $sudo systemctl start naelog ( for check )
+# $sudo systemctl enable naelog
+#
+##############################
+
+[Unit]
+Description=NaeLOG
+After=syslog.target network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/so2/Desktop
+ExecStart=/home/so2/.local/bin/uvicorn main:app --reload --host 0.0.0.0 -port 80
+KillMode=process
+Restart=always
+User=so2
+Group=root
+TimeoutStopSec=5
+StandardOutput=null
+
+[Install]
+WantedBy = multi-user.target
