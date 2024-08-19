@@ -15,10 +15,10 @@ const TestButton: React.FC = () => {
   const handleClick = async (status: "on" | "off") => {
     try {
       await toggleLamp(status);
-      alert(`Lamp switched ${status}`);
+      //alert(`Lamp switched ${status}`);
     } catch (error) {
       console.error("Failed to switch lamp", error);
-      alert("Failed to switch lamp");
+      //alert("Failed to switch lamp");
     }
   };
 
