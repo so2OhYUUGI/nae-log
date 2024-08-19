@@ -1,18 +1,24 @@
-import sentry_sdk
+#import sentry_sdk
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
 from starlette.middleware.cors import CORSMiddleware
 
 from app.api.main import api_router
-from app.core.config import settings
+#from app.core.config import settings
 
 
 def custom_generate_unique_id(route: APIRoute) -> str:
     return f"{route.tags[0]}-{route.name}"
 
+app = FastAPI(
+    title="NaeLOG",
+    openapi_url=f"/localhost:8000/openapi.json",
+    generate_unique_id_function=custom_generate_unique_id,
+)
 
-if settings.SENTRY_DSN and settings.ENVIRONMENT != "local":
-    sentry_sdk.init(dsn=str(settings.SENTRY_DSN), enable_tracing=True)
+'''
+#if settings.SENTRY_DSN and settings.ENVIRONMENT != "local":
+#    sentry_sdk.init(dsn=str(settings.SENTRY_DSN), enable_tracing=True)
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -33,3 +39,6 @@ if settings.BACKEND_CORS_ORIGINS:
     )
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
+'''
+
+app.include_router(api_router, prefix="/api")

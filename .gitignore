@@ -4,5 +4,7 @@ public
 src/gatsby-types.d.ts
 
 .venv/
+**/__pycache__/**
+
 .env.*
 !.env.*.sample
