@@ -1,4 +1,6 @@
 #import sentry_sdk
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
 from starlette.middleware.cors import CORSMiddleware
@@ -17,6 +19,7 @@ app = FastAPI(
 )
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
@@ -33,7 +36,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+path=__file__.split('/')[:-1]
+path.append('../../public/')
+
 app.include_router(api_router, prefix="/api")
+app.mount("/app", StaticFiles(directory='/'.join(path), html=True), name="app")
 
 '''
 #if settings.SENTRY_DSN and settings.ENVIRONMENT != "local":
