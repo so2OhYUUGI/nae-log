@@ -19,11 +19,11 @@
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^5.16.7",
-    "gatsby": "^5.13.5",
-    "gatsby-plugin-material-ui": "^4.0.2",
+    "@tanstack/react-query": "^5.51.23",
+    "gatsby": "^5.13.7",
+    "gatsby-plugin-material-ui": "^4.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-query": "^3.39.3"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.19",
