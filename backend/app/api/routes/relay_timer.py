@@ -7,13 +7,17 @@ from crontab import CronTab
 router = APIRouter()
 
 # Pydanticモデルを作成
-class LampSchedule(BaseModel):
+class RelaySchedule(BaseModel):
     action: str = Field(..., regex="^(on|off)$")
     hour: int = Field(..., ge=0, le=23)
     minute: int = Field(..., ge=0, le=59)
 
-@router.post("/schedule")
-def schedule_lamp_action(schedule: LampSchedule):
+@router.get("/")
+def get_relay_schedule(schedule: RelaySchedule):
+    return "test"
+
+@router.post("/")
+def schedule_relay_action(schedule: RelaySchedule):
     # コマンド設定
     command = f'{PUBLIC_PATH}../.venv/bin/python3 {PUBLIC_PATH}/bin/{schedule.action}-relay.py'
 
@@ -21,7 +25,7 @@ def schedule_lamp_action(schedule: LampSchedule):
     cron = CronTab(user=True)
 
     # 新しいジョブを作成
-    job = cron.new(command=command, comment=f"Lamp {schedule.action.capitalize()} Job")
+    job = cron.new(command=command, comment=f"Relay {schedule.action.capitalize()} Job")
 
     # 指定された時間で毎日実行するように設定
     job.minute.on(schedule.minute)
@@ -31,7 +35,7 @@ def schedule_lamp_action(schedule: LampSchedule):
     # Crontabを更新して保存
     cron.write()
 
-    return {"message": f"Lamp scheduled to turn {schedule.action} at {schedule.hour:02}:{schedule.minute:02} every day."}
+    return {"message": f"Relay scheduled to turn {schedule.action} at {schedule.hour:02}:{schedule.minute:02} every day."}
 
 # その他のエラーハンドリング
 @router.exception_handler(Exception)
