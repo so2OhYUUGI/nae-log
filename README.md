@@ -1,70 +1,80 @@
-# NaeLOG Frontend Setup Guide
+# NaeLOG Setup Guide
 
-This guide provides instructions for setting up the frontend of the NaeLOG application using Gatsby, TypeScript, and Material-UI.
+NaeLOGは、Raspberry Piとの統合を通じて育苗の支援を行うウェブベースのアプリケーションです。ユーザーは育成用照明の設定を管理し、温度や湿度を記録し、これらのパラメーターをウェブインターフェースを介して表示できます。
 
-## Prerequisites
+## 1. Frontend Setup
 
-Ensure you have the following installed on your system:
-- Node.js (v14 or later recommended)
-- npm (v6 or later)
+### Prerequisites
 
-## Initial Setup
+- Node.js and npm are required.
 
-1. **Create a Gatsby project with TypeScript:**
+### Installation
 
-   First, create a new Gatsby project using the following command:
+1. Clone the repository:
 
-   ```bash
-   npm init gatsby nae-log -- -y -ts
-   cd nae-log
+   ```
+   git clone <your-repo-url>
+   cd NaeLOG
    ```
 
-   The above command will create a new Gatsby project with TypeScript support.
+2. Install dependencies:
 
-2. **Install Material-UI and related packages:**
-
-   Install Material-UI and the required styling packages using the following command:
-
-   ```bash
-   npm install @mui/material @emotion/react @emotion/styled gatsby-plugin-material-ui@next --force
+   ```
+   npm install
+   npm install gatsby-plugin-material-ui@next @emotion/react
+   npm install @mui/material @emotion/react @emotion/styled --force
    ```
 
-   These packages include:
-   - `@mui/material`: Material-UI components
-   - `@emotion/react`: CSS-in-JS library for styling
-   - `@emotion/styled`: Styled components for Material-UI
-   - `gatsby-plugin-material-ui@next`: Gatsby plugin for integrating Material-UI
+3. Start the development server:
 
-
-## Testing the Setup
-
-To verify that everything is set up correctly:
-
-1. Create a simple Material-UI component, such as a button, and check that it renders properly:
-
-   ```typescript
-   import React from "react";
-   import Button from "@mui/material/Button";
-
-   const TestButton: React.FC = () => {
-     return (
-       <Button variant="contained" color="primary">
-         Test Button
-       </Button>
-     );
-   };
-
-   export default TestButton;
    ```
-
-2. Start the Gatsby development server:
-
-   ```bash
    gatsby develop
    ```
 
-   Open your browser and navigate to `http://localhost:8000`. The button should be displayed with the defined theme.
+## 2. Backend Setup
 
-## Conclusion
+### Prerequisites
 
-You have now set up the frontend environment for NaeLOG using Gatsby, TypeScript, and Material-UI. You're ready to start building the application's UI components.
+- Python 3.x
+- Raspberry Pi with the necessary hardware setup.
+
+### Virtual Environment Setup
+
+1. Create a virtual environment:
+
+   ```
+   python -m venv .venv --upgrade-deps --system-site-packages
+   ```
+
+2. Activate the virtual environment:
+
+   - **Windows:**
+     ```
+     .\.venv\Scripts\activate
+     ```
+   - **macOS/Linux:**
+     ```
+     source .venv/bin/activate
+     ```
+
+3. Install required libraries:
+
+   ```
+   pip install "fastapi[standard]" uvicorn python-crontab
+   ```
+
+4. Deactivate the virtual environment after use:
+
+   ```
+   deactivate
+   ```
+
+## 3. Running the Backend
+
+1. Use the following command to start the FastAPI server:
+
+   ```
+   uvicorn app.main:app --reload --host=0.0.0.0
+   ```
+
+This setup guide should provide a solid foundation for setting up both the frontend and backend environments for NaeLOG.
