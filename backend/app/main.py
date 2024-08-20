@@ -1,5 +1,5 @@
 #import sentry_sdk
-from pathlib import Path
+from config import PUBLIC_PATH
 
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
@@ -36,11 +36,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-path=__file__.split('/')[:-1]
-path.append('../../public/')
-
 app.include_router(api_router, prefix="/api")
-app.mount("/app", StaticFiles(directory='/'.join(path), html=True), name="app")
+app.mount("/app", StaticFiles(directory=PUBLIC_PATH+'../public', html=True), name="app")
 
 '''
 #if settings.SENTRY_DSN and settings.ENVIRONMENT != "local":
