@@ -1,13 +1,24 @@
 from fastapi import APIRouter
 from gpiozero import LED
+from pydantic import BaseModel
 
 router = APIRouter()
+
 relay = LED(17)
 
-@router.get("/{is_on}")
-def read_item(is_on: str, q: str = None):
-    if is_on == "on":
+class RelayState(BaseModel):
+    state: str  # "on" または "off"
+
+@router.get("/")
+def get_lamp_status():
+    # GPIOの状態を取得
+    status = "on" if relay.is_active else "off"
+    return {"state": status}
+
+@router.post("/")
+def switch_lamp(state: RelayState):
+    if state.state == "on":
         relay.on()
-    else:
+    elif state.state == "off":
         relay.off()
-    return {"relay": is_on, "q": q}
+    return {"lamp": state.state}
