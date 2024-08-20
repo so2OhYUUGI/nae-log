@@ -23,7 +23,7 @@ const TestButton: React.FC = () => {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <Button
         variant="contained"
         color="primary"
@@ -38,7 +38,7 @@ const TestButton: React.FC = () => {
       >
         Turn Off
       </Button>
-    </QueryClientProvider>
+    </>
   );
 };
 
