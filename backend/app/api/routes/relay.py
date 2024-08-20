@@ -21,4 +21,5 @@ def switch_relay(state: RelayState):
         relay.on()
     elif state.state == "off":
         relay.off()
-    return {"lamp": state.state}
+    status = "on" if relay.is_active else "off"
+    return {"state": status}
