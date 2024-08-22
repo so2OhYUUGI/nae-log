@@ -13,16 +13,14 @@ NaeLOGは、Raspberry Piとの統合を通じて育苗の支援を行うウェ�
 1. Clone the repository:
 
    ```
-   git clone <your-repo-url>
-   cd NaeLOG
+   git clone https://github.com/so2OhYUUGI/nae-log.git
+   cd nae-log
    ```
 
 2. Install dependencies:
 
    ```
-   npm install
-   npm install gatsby-plugin-material-ui@next @emotion/react
-   npm install @mui/material @emotion/react @emotion/styled --force
+   yarn install
    ```
 
 3. Start the development server:
@@ -60,7 +58,7 @@ NaeLOGは、Raspberry Piとの統合を通じて育苗の支援を行うウェ�
 3. Install required libraries:
 
    ```
-   pip install "fastapi[standard]" uvicorn python-crontab
+   pip install "fastapi[standard]" uvicorn apscheduler
    ```
 
 4. Deactivate the virtual environment after use:
@@ -74,6 +72,7 @@ NaeLOGは、Raspberry Piとの統合を通じて育苗の支援を行うウェ�
 1. Use the following command to start the FastAPI server:
 
    ```
+   cd backend
    uvicorn app.main:app --reload --host=0.0.0.0
    ```
 

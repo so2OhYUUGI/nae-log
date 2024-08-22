@@ -1,7 +1,7 @@
 ##############################
 #
 # $sudo cp naelog.service /etc/systemd/system
-# sudo systemctl daemon-reload
+# $sudo systemctl daemon-reload
 # $sudo systemctl start naelog ( for check )
 # $sudo systemctl enable naelog
 #
@@ -13,11 +13,11 @@ After=syslog.target network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/nae-log
-ExecStart=/uvicorn main:app --reload --host=0.0.0.0 --port=80
+WorkingDirectory=/[*****]/nae-log/backend
+ExecStart=/bin/bash -c 'source /[*****]/nae-log/.venv/bin/activate && exec uvicorn app.main:app --reload --host=0.0.0.0 --port=80'
 KillMode=process
 Restart=always
-User=[***]
+User=[*****]
 Group=root
 TimeoutStopSec=5
 StandardOutput=null
