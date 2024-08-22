@@ -2,9 +2,10 @@ from fastapi import APIRouter
 from gpiozero import LED
 from pydantic import BaseModel
 
+from app.core.gpio import relay
+
 router = APIRouter()
 
-relay = LED(17)
 
 class RelayState(BaseModel):
     state: str  # "on" または "off"

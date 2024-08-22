@@ -3,6 +3,8 @@ from pydantic import BaseModel, Field
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 
+from app.core.gpio import relay
+
 router = APIRouter()
 
 # Pydanticモデルを作成
@@ -12,6 +14,7 @@ class RelaySchedule(BaseModel):
     minute: int = Field(..., ge=0, le=59)
 
 def tick():
+    relay.on()
     print("Tick! The scheduled task is running.")
 
 # スケジューラのインスタンスを作成
