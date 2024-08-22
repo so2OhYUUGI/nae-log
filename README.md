@@ -6,7 +6,7 @@ NaeLOGは、Raspberry Piとの統合を通じて育苗の支援を行うウェ�
 
 ### Prerequisites
 
-- Node.js and npm are required.
+- Node.js and yarn are required.
 
 ### Installation
 
@@ -23,11 +23,23 @@ NaeLOGは、Raspberry Piとの統合を通じて育苗の支援を行うウェ�
    yarn install
    ```
 
-3. Start the development server:
+### Development Server
 
-   ```
-   gatsby develop
-   ```
+To start the development server:
+
+```
+yarn start
+```
+
+### Frontend Build
+
+To build the frontend for production:
+
+```
+yarn run build
+```
+
+The build files will be output to the `public` directory, which can be served by any static file server.
 
 ## 2. Backend Setup
 
@@ -73,7 +85,7 @@ NaeLOGは、Raspberry Piとの統合を通じて育苗の支援を行うウェ�
 
    ```
    cd backend
-   uvicorn app.main:app --reload --host=0.0.0.0
+   uvicorn app.main:app --reload --host=0.0.0.0 --port=80
    ```
 
-This setup guide should provide a solid foundation for setting up both the frontend and backend environments for NaeLOG.
+This setup guide provides a complete overview for setting up both the frontend and backend environments for NaeLOG.
