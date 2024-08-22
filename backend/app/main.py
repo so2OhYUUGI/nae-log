@@ -4,10 +4,9 @@ from config import PUBLIC_PATH
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
 from starlette.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.api.main import api_router
-#from app.core.config import settings
-
 
 def custom_generate_unique_id(route: APIRoute) -> str:
     return f"{route.tags[0]}-{route.name}"
@@ -17,11 +16,6 @@ app = FastAPI(
     openapi_url=f"/localhost:8000/openapi.json",
     generate_unique_id_function=custom_generate_unique_id,
 )
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-
-app = FastAPI()
 
 origins = [
     "http://localhost",
@@ -37,7 +31,7 @@ app.add_middleware(
 )
 
 app.include_router(api_router, prefix="/api")
-app.mount("/app", StaticFiles(directory=PUBLIC_PATH+'../public', html=True), name="app")
+app.mount("/app", StaticFiles(directory=PUBLIC_PATH, html=True), name="app")
 
 '''
 #if settings.SENTRY_DSN and settings.ENVIRONMENT != "local":
