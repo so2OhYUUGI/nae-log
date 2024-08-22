@@ -2,7 +2,8 @@ from config import PUBLIC_PATH
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
-#from crontab import CronTab
+
+from apscheduler.schedulers.background import BackgroundScheduler
 
 router = APIRouter()
 
@@ -12,32 +13,29 @@ class RelaySchedule(BaseModel):
     hour: int = Field(..., ge=0, le=23)
     minute: int = Field(..., ge=0, le=59)
 
+def tick():
+    from time import sleep
+    from gpiozero import LED
+
+    relay = LED(17)
+
+    relay.on()
+    sleep(1)
+    relay.off()
+
 @router.get("/")
 def get_relay_schedule( q: str = None):
     return {"schedule": "***", "q": q}
 
 @router.post("/")
 def schedule_relay_action(schedule: RelaySchedule):
-    # コマンド設定
-    command = f'{PUBLIC_PATH}../.venv/bin/python3 {PUBLIC_PATH}/bin/{schedule.action}-relay.py'
-
-    # Crontabのインスタンスを作成
-    #cron = CronTab(user=True)
-
-    # 新しいジョブを作成
-    #job = cron.new(command=command, comment=f"Relay {schedule.action.capitalize()} Job")
-
-    # 指定された時間で毎日実行するように設定
-    #job.minute.on(schedule.minute)
-    #job.hour.on(schedule.hour)
-    #job.every().day()
-
-    # Crontabを更新して保存
-    #cron.write()
-
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(tick, 'interval', seconds=3)
+    scheduler.start()
+ 
+    try:
+        scheduler.start()
+    except (KeyboardInterrupt, SystemExit):
+        pass
     return {"message": f"Relay scheduled to turn {schedule.action} at {schedule.hour:02}:{schedule.minute:02} every day."}
 
-# その他のエラーハンドリング
-#@router.exception_handler(Exception)
-#def handle_exception(exc: Exception):
-#    raise HTTPException(status_code=500, detail=str(exc))
