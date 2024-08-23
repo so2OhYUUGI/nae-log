@@ -14,10 +14,10 @@ from app.core.gpio import server_run_led
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    server_run_led.on()
+    server_run_led.on()  # サーバー起動時にLEDを点灯
     print('naelog server start')
     yield
-    server_run_led.off()
+    server_run_led.off()  # サーバー終了時にLEDを消灯
     print('naelog server shutdown')
 
 def custom_generate_unique_id(route: APIRoute) -> str:
