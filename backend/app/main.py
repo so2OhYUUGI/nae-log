@@ -11,14 +11,16 @@ from fastapi.staticfiles import StaticFiles
 from app.api.main import api_router
 
 from app.core.gpio import server_run_led
+from app.core.scheduler import scheduler
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     server_run_led.on()  # サーバー起動時にLEDを点灯
-    print('naelog server start')
+    scheduler.start()    # APschedulerを開始
+    print('###***--- naelog server start ---***###')
     yield
     server_run_led.off()  # サーバー終了時にLEDを消灯
-    print('naelog server shutdown')
+    print('###***--- naelog server shutdown ---***###')
 
 def custom_generate_unique_id(route: APIRoute) -> str:
     return f"{route.tags[0]}-{route.name}"
@@ -45,3 +47,17 @@ app.add_middleware(
 
 app.include_router(api_router, prefix="/api")
 app.mount("/app", StaticFiles(directory=PUBLIC_PATH, html=True), name="app")
+
+
+
+
+# for api error log
+'''
+from fastapi import FastAPI, Request, status
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
+@app.exception_handler(RequestValidationError)
+async def handler(request:Request, exc:RequestValidationError):
+    print(exc)
+    return JSONResponse(content={}, status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
+'''
