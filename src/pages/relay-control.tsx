@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
 // API URL
-const API_URL = "http://raspberrypi.local:8000/api/relay";
+const API_URL = "http://raspberrypi.local:8000/api/relays";
 const API_TIME_URL = "http://raspberrypi.local:8000/api/relay/schedule";
 
 // リレーの状態を取得する
@@ -20,9 +20,8 @@ const toggleRelay = async (state: "on" | "off") => {
 };
 
 // 時刻を設定する
-const setSchedule = async (schedule: { action: string, hour: number, minute: number }) => {
+const setSchedule = async (schedule: { action: "on" | "off", hour: number, minute: number }) => {
 	const response = await axios.post(API_TIME_URL, schedule);
-	console.log(response.data);
 	return response.data;
 };
 

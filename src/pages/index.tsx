@@ -1,45 +1,36 @@
-import React from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Button from "@mui/material/Button";
-import axios from "axios";
+// src/pages/index.tsx
 
-const queryClient = new QueryClient();
+import React from 'react';
+import { graphql } from 'gatsby';
+import { Typography } from '@mui/material';
 
-const TestButton: React.FC = () => {
-  const toggleLamp = async (state: "on" | "off") => {
-    const url = `http://raspberrypi.local:8000/api/lamp/`;
-    const response = await axios.post(url, { state });
-    return response.data;
-  };
-
-  const handleClick = async (status: "on" | "off") => {
-    try {
-      await toggleLamp(status);
-      //alert(`Lamp switched ${status}`);
-    } catch (error) {
-      console.error("Failed to switch lamp", error);
-      //alert("Failed to switch lamp");
+// Gatsbyのデータをクエリする
+export const query = graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+      }
     }
-  };
+  }
+`;
 
-  return (
-    <>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => handleClick("on")}
-      >
-        Turn On
-      </Button>
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={() => handleClick("off")}
-      >
-        Turn Off
-      </Button>
-    </>
-  );
+const IndexPage = ({ data }: any) => {
+	const title = data.site.siteMetadata.title;
+
+	return (
+		<div>
+			<Typography variant="h1" component="h1">
+				{title}
+			</Typography>
+			<p>楽しい育苗管理を始めよう！</p>
+		</div>
+	);
 };
 
-export default TestButton;
+export default IndexPage;
+
+// 印象的なタイトル
+export const Head = () => (
+	<title>NaeLOG - ラクする育苗管理</title>
+);
