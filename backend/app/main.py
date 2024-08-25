@@ -1,17 +1,17 @@
-#import sentry_sdk
-from config import PUBLIC_PATH
-
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
-from starlette.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-
-from app.api.main import api_router
+from starlette.middleware.cors import CORSMiddleware
 
 from app.core.gpio import server_run_led
 from app.core.scheduler import scheduler
+
+from app.api.main import api_router
+from app.graphql.main import graphql_app
+
+from config import PUBLIC_PATH
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -33,8 +33,7 @@ app = FastAPI(
 )
 
 origins = [
-    # 本番環境時は削除してください
-    "http://localhost:8000",
+    "http://localhost:8000",  # 本番環境時は削除してください
 ]
 
 app.add_middleware(
@@ -45,11 +44,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# APIルーターとGraphQLルーターの追加
 app.include_router(api_router, prefix="/api")
+app.include_router(graphql_app, prefix="/graphql", tags=["graphql"])
+
+#app.add_route("/graphql", graphql_app)
+#app.add_websocket_route("/graphql", graphql_app)
+
 app.mount("/app", StaticFiles(directory=PUBLIC_PATH, html=True), name="app")
-
-
-
 
 # for api error log
 '''
