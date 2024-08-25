@@ -58,7 +58,7 @@ NaeLOGは、Raspberry Piとの統合を通じて育苗の支援を行うウェ�
 3. Install required libraries:
 
    ```
-   pip install "fastapi[standard]" uvicorn apscheduler
+   pip install "fastapi[standard]" uvicorn apscheduler 'strawberry-graphql[fastapi]'
    ```
 
 4. Deactivate the virtual environment after use:
