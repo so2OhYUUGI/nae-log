@@ -11,12 +11,32 @@ from app.core.scheduler import scheduler
 from app.api.main import api_router
 from app.graphql.main import graphql_app
 
+from app.core.scheduler import scheduler
+from app.db.session import SessionLocal
+from app.models.schedule import Schedule
+
 from config import PUBLIC_PATH
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     server_run_led.on()  # サーバー起動時にLEDを点灯
-    scheduler.start()    # APschedulerを開始
+    scheduler.start()    # APSchedulerを開始
+
+    # データベースからスケジュールを復元
+    session = SessionLocal()
+    schedules = session.query(Schedule).all()
+    for schedule in schedules:
+        if schedule.active:
+            # スケジュールを復帰
+            scheduler.add_job(
+                id=schedule.job_id,
+                name=schedule.name,
+                trigger='cron',
+                cron=schedule.cron,
+                next_run_time=schedule.next_run_time,
+            )
+
     print('###***--- naelog server start ---***###')
     yield
     server_run_led.off()  # サーバー終了時にLEDを消灯

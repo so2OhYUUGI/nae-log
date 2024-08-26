@@ -8,5 +8,7 @@ src/gatsby-types.d.ts
 backend/config.py
 backend/*.service
 
+backend/.db/
+
 .env.*
 !.env.*.sample
