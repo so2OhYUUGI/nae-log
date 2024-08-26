@@ -1,7 +1,7 @@
 # $ cd backend
 # $ python3 -m app.db.init_db
 from app.db.session import engine
-from app.models import schedule
+from app.db.models import schedule
 
 # データベース初期化
 def init_db():

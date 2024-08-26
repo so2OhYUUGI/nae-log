@@ -13,7 +13,7 @@ from app.graphql.main import graphql_app
 
 from app.core.scheduler import scheduler
 from app.db.session import SessionLocal
-from app.models.schedule import Schedule
+from app.db.models.schedule import Schedule
 
 from config import PUBLIC_PATH
 

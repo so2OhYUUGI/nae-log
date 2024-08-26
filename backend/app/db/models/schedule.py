@@ -6,6 +6,7 @@ class Schedule(Base):
     __tablename__ = "schedules"  # テーブル名を指定
 
     id = Column(Integer, primary_key=True, index=True)
+    relay_id = Column(Integer, index=True)
     job_id = Column(String, index=True, unique=True)
     name = Column(String, index=True)
     cron = Column(String)  # cron式
