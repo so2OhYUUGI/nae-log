@@ -70,7 +70,7 @@ The build files will be output to the `public` directory, which can be served by
 3. Install required libraries:
 
    ```
-   pip install "fastapi[standard]" uvicorn apscheduler
+   pip install "fastapi[standard]" uvicorn apscheduler 'strawberry-graphql[fastapi]' sqlalchemy
    ```
 
 4. Deactivate the virtual environment after use:
