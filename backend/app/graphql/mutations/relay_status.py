@@ -1,3 +1,4 @@
+# app/graphql/mutations/relay_status.py
 import strawberry
 from typing import List, Optional
 from app.core.gpio import power_supply_relay

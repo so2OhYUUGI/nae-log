@@ -1,3 +1,4 @@
+# app/graphql/main.py
 import strawberry
 from strawberry.fastapi import GraphQLRouter
 
@@ -7,7 +8,7 @@ from app.graphql.queries.temperature import TemperatureQuery
 from app.graphql.queries.relay_schedule import ScheduleQuery
 
 # mutations
-from app.graphql.mutations.relay import RelayStatusMutation
+from app.graphql.mutations.relay_status import RelayStatusMutation
 
 @strawberry.type
 class Query(RelayStatusQuery, ScheduleQuery, TemperatureQuery):

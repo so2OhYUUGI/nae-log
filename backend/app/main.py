@@ -1,3 +1,4 @@
+# app/main.py
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -8,12 +9,12 @@ from starlette.middleware.cors import CORSMiddleware
 from app.core.gpio import server_run_led
 from app.core.scheduler import scheduler
 
-from app.api.main import api_router
+from app.restapi.main import api_router
 from app.graphql.main import graphql_app
 
 from app.core.scheduler import scheduler
 from app.db.session import SessionLocal
-from app.db.models.schedule import Schedule
+from app.entities.schedule import Schedule
 
 from config import PUBLIC_PATH
 
