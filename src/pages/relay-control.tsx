@@ -3,6 +3,8 @@ import { Button, TextField, Box, Typography, Container } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
+import Layout from '../components/Layout';
+
 // API URL
 const API_URL = "http://raspberrypi.local:8000/api/relays";
 const API_TIME_URL = "http://raspberrypi.local:8000/api/relay/schedule";
@@ -38,8 +40,8 @@ const LampControl: React.FC = () => {
 		fetchStatus();
 	}, []);
 
-	const { mutate: toggleRelayMutation } = useMutation({mutationFn: toggleRelay});
-	const { mutate: setScheduleMutation } = useMutation({mutationFn: setSchedule});
+	const { mutate: toggleRelayMutation } = useMutation({ mutationFn: toggleRelay });
+	const { mutate: setScheduleMutation } = useMutation({ mutationFn: setSchedule });
 
 	const handleOnTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setOnTime(event.target.value);
@@ -63,52 +65,54 @@ const LampControl: React.FC = () => {
 	};
 
 	return (
-		<Container>
-			<Typography variant="h4" gutterBottom>
-				リレーコントロール
-			</Typography>
-			<Box mb={2}>
-				<TextField
-					label="点灯時刻 (HH:MM)"
-					type="time"
-					value={onTime}
-					onChange={handleOnTimeChange}
-					fullWidth
-				/>
+		<Layout>
+			<Container>
+				<Typography variant="h4" gutterBottom>
+					リレーコントロール
+				</Typography>
+				<Box mb={2}>
+					<TextField
+						label="点灯時刻 (HH:MM)"
+						type="time"
+						value={onTime}
+						onChange={handleOnTimeChange}
+						fullWidth
+					/>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={() => handleSetSchedule("on")}
+						style={{ marginTop: 10 }}
+					>
+						点灯時刻設定
+					</Button>
+				</Box>
+				<Box mb={2}>
+					<TextField
+						label="消灯時刻 (HH:MM)"
+						type="time"
+						value={offTime}
+						onChange={handleOffTimeChange}
+						fullWidth
+					/>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={() => handleSetSchedule("off")}
+						style={{ marginTop: 10 }}
+					>
+						消灯時刻設定
+					</Button>
+				</Box>
 				<Button
 					variant="contained"
-					color="primary"
-					onClick={() => handleSetSchedule("on")}
-					style={{ marginTop: 10 }}
+					color={relayState === "on" ? "secondary" : "primary"}
+					onClick={handleToggleRelay}
 				>
-					点灯時刻設定
+					{relayState === "on" ? "リレーを消す" : "リレーを点ける"}
 				</Button>
-			</Box>
-			<Box mb={2}>
-				<TextField
-					label="消灯時刻 (HH:MM)"
-					type="time"
-					value={offTime}
-					onChange={handleOffTimeChange}
-					fullWidth
-				/>
-				<Button
-					variant="contained"
-					color="primary"
-					onClick={() => handleSetSchedule("off")}
-					style={{ marginTop: 10 }}
-				>
-					消灯時刻設定
-				</Button>
-			</Box>
-			<Button
-				variant="contained"
-				color={relayState === "on" ? "secondary" : "primary"}
-				onClick={handleToggleRelay}
-			>
-				{relayState === "on" ? "リレーを消す" : "リレーを点ける"}
-			</Button>
-		</Container>
+			</Container>
+		</Layout>
 	);
 };
 

@@ -1,36 +1,25 @@
-// src/pages/index.tsx
-
 import React from 'react';
-import { graphql } from 'gatsby';
-import { Typography } from '@mui/material';
+import { Link } from 'gatsby';
+import { Container, Box, Typography, Button } from '@mui/material';
 
-// Gatsbyのデータをクエリする
-export const query = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-  }
-`;
-
-const IndexPage = ({ data }: any) => {
-	const title = data.site.siteMetadata.title;
-
-	return (
-		<div>
-			<Typography variant="h1" component="h1">
-				{title}
-			</Typography>
-			<p>楽しい育苗管理を始めよう！</p>
-		</div>
-	);
-};
+const IndexPage = () => (
+		<Container maxWidth="lg">
+			<Box textAlign="center" py={10}>
+				<Typography variant="h2" component="h1" gutterBottom>
+					Welcome to NaeLOG
+				</Typography>
+				<Typography variant="h6" component="p" gutterBottom>
+					Seamlessly manage and monitor your seedling growth with NaeLOG's advanced features.
+				</Typography>
+				<Box mt={4}>
+					<Link to="/main" style={{ textDecoration: 'none' }}>
+						<Button variant="contained" color="primary" size="large">
+							Get Started
+						</Button>
+					</Link>
+				</Box>
+			</Box>
+		</Container>
+);
 
 export default IndexPage;
-
-// 印象的なタイトル
-export const Head = () => (
-	<title>NaeLOG - ラクする育苗管理</title>
-);
