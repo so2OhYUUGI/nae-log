@@ -1,22 +1,43 @@
-#import sentry_sdk
-from config import PUBLIC_PATH
-
+# app/main.py
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
-from starlette.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-
-from app.api.main import api_router
+from starlette.middleware.cors import CORSMiddleware
 
 from app.core.gpio import server_run_led
 from app.core.scheduler import scheduler
 
+from app.restapi.main import api_router
+from app.graphql.main import graphql_app
+
+from app.core.scheduler import scheduler
+from app.db.session import SessionLocal
+from app.entities.schedule import Schedule
+
+from config import PUBLIC_PATH
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     server_run_led.on()  # サーバー起動時にLEDを点灯
-    scheduler.start()    # APschedulerを開始
+    scheduler.start()    # APSchedulerを開始
+
+    # データベースからスケジュールを復元
+    session = SessionLocal()
+    schedules = session.query(Schedule).all()
+    for schedule in schedules:
+        if schedule.active:
+            # スケジュールを復帰
+            scheduler.add_job(
+                id=schedule.job_id,
+                name=schedule.name,
+                trigger='cron',
+                cron=schedule.cron,
+                next_run_time=schedule.next_run_time,
+            )
+
     print('###***--- naelog server start ---***###')
     yield
     server_run_led.off()  # サーバー終了時にLEDを消灯
@@ -33,8 +54,7 @@ app = FastAPI(
 )
 
 origins = [
-    # 本番環境時は削除してください
-    "http://localhost:8000",
+    "http://localhost:8000",  # 本番環境時は削除してください
 ]
 
 app.add_middleware(
@@ -45,11 +65,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# APIルーターとGraphQLルーターの追加
 app.include_router(api_router, prefix="/api")
+app.include_router(graphql_app, prefix="/graphql", tags=["graphql"])
+
+#app.add_route("/graphql", graphql_app)
+#app.add_websocket_route("/graphql", graphql_app)
+
 app.mount("/app", StaticFiles(directory=PUBLIC_PATH, html=True), name="app")
-
-
-
 
 # for api error log
 '''

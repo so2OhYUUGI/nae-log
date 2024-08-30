@@ -5,8 +5,10 @@ src/gatsby-types.d.ts
 
 .venv/
 **/__pycache__/**
-backend/config.py
 backend/*.service
 
+backend/.db/
+
+.env
 .env.*
-!.env.*.sample
+!.env*.sample

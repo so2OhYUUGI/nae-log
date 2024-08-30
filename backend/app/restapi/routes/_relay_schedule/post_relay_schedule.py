@@ -1,4 +1,5 @@
 from typing import Literal
+from time import time
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
@@ -17,9 +18,11 @@ class RelaySchedule(BaseModel):
 
 def on_relay():
     power_supply_relay[0].on()
+    print(f"relay 0 on at {time()}")
 
 def off_relay():
     power_supply_relay[0].off()
+    print(f"relay 0 off at {time()}")
 
 def schedule_relay_job(job_id: str, action: str, hour: int, minute: int):
     job_function = on_relay if action == "on" else off_relay

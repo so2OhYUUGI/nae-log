@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.api.routes import lamp, relay, relay_schedule
+from app.restapi.routes import lamp, relay, relay_schedule
 
 api_router = APIRouter()
 api_router.include_router(lamp.router, prefix="/lamp", tags=["lamp"])

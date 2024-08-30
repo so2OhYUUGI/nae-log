@@ -9,5 +9,5 @@ server_run_led = LED(4)
 red = LED(17)
 
 # Power Supply Relay Control
-# pin no, 40, 
-power_supply_relay = [LED(21)]
+# pin no, 40, 38, 37
+power_supply_relay = [LED(21), LED(20), LED(26)]
