@@ -1,7 +1,8 @@
 import React from 'react';
-import { Container, Grid, Box, Typography, Card, CardContent, Button } from '@mui/material';
-import Layout from '../components/Layout';
 import { Link } from 'gatsby';  // GatsbyのLinkコンポーネントをインポート
+import { Container, Grid, Box, Typography, Card, CardContent, Button } from '@mui/material';
+
+import Layout from '../components/Layout';
 
 const MainPage = () => (
 	<Layout>
