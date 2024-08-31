@@ -38,6 +38,7 @@ async def lifespan(app: FastAPI):
                     cron=schedule.cron,
                     next_run_time=schedule.next_run_time,
                 )
+
     except Exception as e:
         print(f"Error loading schedules: {e}")
     finally:
