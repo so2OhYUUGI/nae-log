@@ -9677,6 +9677,11 @@ swap-case@^2.0.2:
   dependencies:
     tslib "^2.0.3"
 
+swiper@^11.1.11:
+  version "11.1.11"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-11.1.11.tgz#17fa3589b372d1d1137bb1a02a4c12a5256ba2fc"
+  integrity sha512-077Aw3OrlZpkkBRf/6+44bGh/HZY/vsLEyate2db2KkJgYUIR5TvDgvvhcJtW/puXzw79w5KBc30DauEX6GZYQ==
+
 system-architecture@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/system-architecture/-/system-architecture-0.1.0.tgz#71012b3ac141427d97c67c56bc7921af6bff122d"
