@@ -26,22 +26,29 @@ async def lifespan(app: FastAPI):
 
     # データベースからスケジュールを復元
     session = SessionLocal()
-    schedules = session.query(Schedule).all()
-    for schedule in schedules:
-        if schedule.active:
-            # スケジュールを復帰
-            scheduler.add_job(
-                id=schedule.job_id,
-                name=schedule.name,
-                trigger='cron',
-                cron=schedule.cron,
-                next_run_time=schedule.next_run_time,
-            )
+    try:
+        schedules = session.query(Schedule).all()
+        for schedule in schedules:
+            if schedule.active:
+                # スケジュールを復帰
+                scheduler.add_job(
+                    id=schedule.job_id,
+                    name=schedule.name,
+                    trigger='cron',
+                    cron=schedule.cron,
+                    next_run_time=schedule.next_run_time,
+                )
+
+    except Exception as e:
+        print(f"Error loading schedules: {e}")
+    finally:
+        session.close()
 
     print('###***--- naelog server start ---***###')
     yield
     server_run_led.off()  # サーバー終了時にLEDを消灯
     print('###***--- naelog server shutdown ---***###')
+
 
 def custom_generate_unique_id(route: APIRoute) -> str:
     return f"{route.tags[0]}-{route.name}"
