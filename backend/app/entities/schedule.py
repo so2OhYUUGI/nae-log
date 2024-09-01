@@ -28,7 +28,7 @@ class ScheduleBase(BaseModel):
     next_run_time: Optional[datetime] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # Pydantic Create and Update Schemas
 class ScheduleCreate(ScheduleBase):
