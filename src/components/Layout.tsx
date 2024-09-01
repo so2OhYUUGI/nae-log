@@ -1,24 +1,26 @@
-import React, { ReactNode } from 'react';
-import { Container, AppBar, Toolbar, Typography, Box } from '@mui/material';
+import React, { PropsWithChildren } from 'react';
+import ResponsiveMenu from './ResponsiveMenu';
+import { useMediaQuery } from '@mui/material';
 
-interface LayoutProps {
-	children: ReactNode;
-}
+function Layout({ children }: PropsWithChildren) {
+	const isTabletOrLarger = useMediaQuery('(min-width:768px)');
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
 	return (
-		<Box>
-			<AppBar position="static">
-				<Toolbar>
-					<Typography variant="h6" color="inherit">
-						NaeLOG
-					</Typography>
-				</Toolbar>
-			</AppBar>
-			<Container maxWidth="lg">
-				<Box mt={2}>{children}</Box>
-			</Container>
-		</Box>
+		<div style={{ display: 'flex', flexDirection: isTabletOrLarger ? 'row' : 'column', height: '100vh' }}>
+			{isTabletOrLarger && (
+				<aside style={{ width: '250px', backgroundColor: '#f4f4f4' }}>
+					<ResponsiveMenu />
+				</aside>
+			)}
+			<main style={{ flex: 1, overflowY: 'auto' }}>
+				{children}
+			</main>
+			{!isTabletOrLarger && (
+				<footer style={{ backgroundColor: '#f4f4f4' }}>
+					<ResponsiveMenu />
+				</footer>
+			)}
+		</div>
 	);
 };
 

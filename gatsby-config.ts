@@ -11,6 +11,25 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
+    `gatsby-plugin-image`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
+    },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `NaeLOG`,
+        short_name: `naelog`,
+        start_url: `/app/`,
+        icon: `src/images/favicon.png`, // 使用するファビコン画像のパス
+      },
+    },
     {
       resolve: `gatsby-plugin-material-ui`,
       options: {
