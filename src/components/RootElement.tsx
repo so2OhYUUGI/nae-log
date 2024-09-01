@@ -1,3 +1,4 @@
+// src/components/RootElement.tsx
 import React, { PropsWithChildren } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";

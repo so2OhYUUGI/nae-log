@@ -1,3 +1,4 @@
+// src/pages/index.tsx
 import React from 'react';
 import { Link } from 'gatsby';
 import { StaticImage } from "gatsby-plugin-image"
@@ -23,7 +24,7 @@ const IndexPage = () => (
 				style={{ marginBottom: `var(--space-3)` }}
 			/>
 			<Box mt={4}>
-				<Link to="/main" style={{ textDecoration: 'none' }}>
+				<Link to="/home" style={{ textDecoration: 'none' }}>
 					<Button variant="contained" color="primary" size="large">
 						Get Started
 					</Button>

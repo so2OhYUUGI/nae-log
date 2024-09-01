@@ -1,3 +1,4 @@
+// src/components/Layout.tsx
 import React, { PropsWithChildren } from 'react';
 import ResponsiveMenu from './ResponsiveMenu';
 import { useMediaQuery } from '@mui/material';

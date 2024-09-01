@@ -1,33 +1,9 @@
 // src/components/ResponsiveMenu.tsx
 import React from 'react';
 import { Box, List, ListItemButton, ListItemIcon, ListItemText, BottomNavigation, BottomNavigationAction, useMediaQuery, IconButton, Menu, MenuItem } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import LightbulbIcon from '@mui/icons-material/Lightbulb';
-import ThermostatIcon from '@mui/icons-material/Thermostat';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import SettingsIcon from '@mui/icons-material/Settings';
-import HelpIcon from '@mui/icons-material/Help';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-type MenuItemType = {
-  icon: JSX.Element;
-  href: string;
-  label: string;
-};
-
-const menuItems: MenuItemType[] = [
-  { icon: <HomeIcon />, href: "/home", label: "ホーム" },
-  { icon: <CameraAltIcon />, href: "/camera", label: "カメラ" },
-  { icon: <LightbulbIcon />, href: "/lighting", label: "照明管理" },
-  { icon: <ThermostatIcon />, href: "/temperature-humidity", label: "温度 / 湿度記録" },
-  { icon: <CalendarTodayIcon />, href: "/calendar", label: "カレンダー" }
-];
-
-const moreMenuItems: MenuItemType[] = [
-  { icon: <SettingsIcon />, href: "/settings-profile", label: "設定" },
-  { icon: <HelpIcon />, href: "/help", label: "ヘルプ" }
-];
+import { menuItems, moreMenuItems } from '../data/menuItems';
 
 function ResponsiveMenu({ }) {
   const isTabletOrLarger = useMediaQuery('(min-width:768px)');

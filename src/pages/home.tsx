@@ -6,18 +6,10 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import FieldCard from '../components/FieldCard';
 import Layout from '../components/Layout';
-import { FieldCardProps } from '../types/FieldCardTypes'; // 型をインポート
+import { fieldData } from '../data/fieldData';
 
-const fieldData: FieldCardProps[] = [
-	{ fieldName: '圃場1', camera: true, temperature: 25, humidity: 60, powerStatus: [true, false, true] },
-	{ fieldName: '圃場2', camera: false, temperature: 22, humidity: 55, powerStatus: [false, false, true] },
-	{ fieldName: '圃場3', camera: true, temperature: 28, humidity: 70, powerStatus: [true, true, false] },
-	// 他の圃場データも追加可能
-];
-
-const MainPage = () => {
+const HomePage = () => {
 	const isTabletOrLarger = useMediaQuery('(min-width:768px)');
-	const isMobile = useMediaQuery('(max-width:767px)'); // スマホ画面用のクエリ
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	const handleNext = () => {
@@ -49,13 +41,13 @@ const MainPage = () => {
 							display="flex"
 							alignItems="center"
 							justifyContent="center"
-							width={isMobile ? '80%' : '90%'}  // スマホ画面で幅を調整
+							width="100%" // スマホ画面で幅を調整
 							mx="auto"
 						>
 							<IconButton onClick={handleBack} style={{ position: 'absolute', left: '10px' }}>
 								<ArrowBackIosIcon />
 							</IconButton>
-							<Box px={2}>
+							<Box px={2} width="90%">
 								<FieldCard {...fieldData[currentIndex]} />
 							</Box>
 							<IconButton onClick={handleNext} style={{ position: 'absolute', right: '10px' }}>
@@ -69,4 +61,4 @@ const MainPage = () => {
 	);
 };
 
-export default MainPage;
+export default HomePage;
