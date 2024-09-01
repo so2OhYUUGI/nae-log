@@ -13,6 +13,3 @@ PROJECT_NAME = os.getenv("PROJECT_NAME", "NaeLOG")
 HOME_PATH = os.getenv("HOME_PATH", "/home/so2/nae-log/")
 PUBLIC_PATH = os.getenv("PUBLIC_PATH", f"{HOME_PATH}public/")
 DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{HOME_PATH}backend/.db/nae-log.sqlite3")
-
-print(env_path)
-print(PUBLIC_PATH)
