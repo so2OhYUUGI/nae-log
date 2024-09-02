@@ -1,43 +1,58 @@
-# Developer Guide
+# 開発者ガイド
 
-## Project Overview
-NaeLOG is a web-based application designed to assist with seedling cultivation by integrating with a Raspberry Pi. The application provides features such as grow light control, temperature and humidity recording, and a user-friendly interface for setting and viewing parameters.
+## プロジェクト概要
+NaeLOGは、Raspberry Piと統合して育苗を支援するウェブベースのアプリケーションです。照明制御、温度・湿度の記録、設定・表示が可能なユーザーフレンドリーなインターフェースを提供します。
 
-## Design Patterns
-- **Design Style:** Flat Design
-- **Accessibility:** Prioritized throughout the design.
-- **Scrolling Design:** Utilized in key sections to enhance user experience.
-- **Primary Platform:** The design is responsive, ensuring a great experience on tablets, PCs, and smartphones.
-- **UI/UX Considerations:**
-  - **PC:** Clear and detailed data analysis features.
-  - **Mobile/Tablet:** Casual data viewing with a focus on ease of use.
+## デザインパターン
+- **デザインスタイル**: フラットデザイン
+- **アクセシビリティ**: デザイン全体で優先的に考慮されています。
+- **スクロールデザイン**: ユーザー体験を向上させるために、主要なセクションで使用。
+- **主要プラットフォーム**: デザインはレスポンシブで、タブレット、PC、スマートフォンで優れた体験を提供します。
+- **UI/UXの考慮点**:
+  - **PC**: データ分析機能を明確かつ詳細に表示。
+  - **モバイル/タブレット**: 簡便なデータ閲覧を重視。
 
-## Technologies and Libraries
-- **Primary Framework:** React
-- **UI Framework:** Material-UI (MUI)
-- **GraphQL:** React Query for data management
-- **Testing Strategy:** Cypress for end-to-end testing
-- **Animations:** Script-based transitions and button effects to enhance user interaction.
+## 使用技術とライブラリ
+- **主要フレームワーク**: React
+- **UIフレームワーク**: Material-UI (MUI)
+- **GraphQL**: React Queryを使用したデータ管理
+- **テスト戦略**: Cypressを用いたエンドツーエンドテスト
+- **アニメーション**: スクリプトベースのトランジションとボタン効果でユーザーインタラクションを強化。
 
-## Setup Instructions
-1. Clone the repository.
-2. Install dependencies using Yarn: `yarn install`.
-3. Start the development server: `yarn start`.
+## セットアップ手順
+1. リポジトリをクローンします。
+2. Yarnを使用して依存関係をインストールします: `yarn install`
+3. 開発サーバーを開始します: `yarn start`
 
-## Theme Colors
-- **Primary Color:** #4CAF50 (green)
-- **Secondary Color:** #8BC34A (light green)
-- **Accent Color:** #FF9800 (orange)
-- **Background Color:** #F5F5F5 (light grey)
+## テーマカラー
+- **プライマリカラー**: #4CAF50 (緑)
+- **セカンダリカラー**: #8BC34A (ライトグリーン)
+- **アクセントカラー**: #FF9800 (オレンジ)
+- **背景色**: #F5F5F5 (ライトグレー)
 
-These colors were chosen to align with the brand image, emphasizing the fun and supportive aspects of seedling cultivation.
+これらの色は、ブランドイメージに沿って選定されており、育苗の楽しさとサポートを強調しています。
 
-## Future Considerations
-- **Cloud Integration:** For data storage and synchronization.
-- **Social Features:** Limited social interaction features like "likes" and "stamps" within the community.
+## 追加機能の検討
+### 新機能
+- **ライブ映像およびスナップショット機能**:
+  - ラズパイ・カメラを用いて、リアルタイムの映像ストリーミングを提供。
+  - 定時撮影のスナップショット機能を実装。
 
-## Contributing
-Please follow the contributing guidelines outlined in the CONTRIBUTING.md file.
+- **データ記録およびグラフ表示機能**:
+  - 温度、湿度、照明のON/OFF履歴を記録し、フロントエンドでグラフ表示に使用できるデータを提供。
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+- **苗の情報管理機能**:
+  - 育成中の苗の詳細情報（種類、植え付け日、成長状況など）を管理し、ライフサイクルに応じて新規、更新、収穫（終了）を記録。
+
+- **拡張スケジュール機能**:
+  - 照明制御だけでなく、水やりや肥料のタイミングを通知するスケジュール機能を実装。
+
+## 将来的な考慮事項
+- **クラウド統合**: データの保存と同期のためのクラウド統合。
+- **ソーシャル機能**: コミュニティ内で「いいね」や「スタンプ」を利用した限定的なソーシャルインタラクション機能。
+
+## 貢献方法
+貢献の際は、CONTRIBUTING.mdファイルに記載されているガイドラインに従ってください。
+
+## ライセンス
+このプロジェクトはMITライセンスの下でライセンスされています。詳細についてはLICENSEファイルを参照してください。
