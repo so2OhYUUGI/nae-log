@@ -8,7 +8,7 @@ from app.graphql.types.relay import RelayType
 @strawberry.type
 class RelayQuery:
     @strawberry.field
-    def elays(self) -> List[RelayType]:
+    def relays(self) -> List[RelayType]:
         with SessionLocal() as db:
             relays = db.query(Relay).all()
             return [RelayType(id=relay.id, port=relay.port, relay_type=relay.relay_type, description=relay.description, field_id=relay.field_id) for relay in relays]
