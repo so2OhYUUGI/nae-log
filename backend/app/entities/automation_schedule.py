@@ -1,16 +1,15 @@
-# app/entities/schedule.py
+# app/entities/automation_schedule.py
 from typing import Optional
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
 import strawberry
 from pydantic import BaseModel
-from typing import Optional
 from datetime import datetime
 
 from app.db.base_class import Base
 
-# Schedule Model (SQLAlchemy ORM Model)
-class Schedule(Base):
-    __tablename__ = "schedules"
+# AutomationSchedule Model (SQLAlchemy ORM Model)
+class AutomationSchedule(Base):
+    __tablename__ = "automation_schedules"
 
     id = Column(Integer, primary_key=True, index=True)
     relay_id = Column(Integer, index=True)
@@ -21,7 +20,7 @@ class Schedule(Base):
     next_run_time = Column(DateTime)
 
 # Pydantic Base Model
-class ScheduleBase(BaseModel):
+class AutomationScheduleBase(BaseModel):
     relay_id: int
     job_id: str
     name: str
@@ -32,20 +31,19 @@ class ScheduleBase(BaseModel):
     class Config:
         from_attributes = True
 
-# Pydantic Create and Update Schemas
-class ScheduleCreate(ScheduleBase):
+class AutomationScheduleCreate(AutomationScheduleBase):
     pass
 
-class ScheduleUpdate(ScheduleBase):
+class AutomationScheduleUpdate(AutomationScheduleBase):
     pass
 
 # Pydantic DB Schema
-class ScheduleInDBBase(ScheduleBase):
+class AutomationScheduleInDBBase(AutomationScheduleBase):
     id: int
 
 # Strawberry GraphQL Schema
 @strawberry.type
-class ScheduleSchema:
+class AutomationScheduleSchema:
     id: int
     relay_id: int
     job_id: str
