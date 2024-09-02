@@ -9,3 +9,5 @@ src/gatsby-types.d.ts
 .env
 .env.*
 !.env.*.sample
+
+.DS_Store

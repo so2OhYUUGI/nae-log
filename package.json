@@ -13,7 +13,9 @@
     "build": "gatsby build --prefix-paths",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "cy:open": "cypress open --browser chrome --e2e",
+    "test:e2e": "CYPRESS_SUPPORT=y start-server-and-test develop http://localhost:8000 cy:open"
   },
   "dependencies": {
     "@emotion/react": "^11.13.0",
@@ -36,6 +38,9 @@
     "@types/node": "^20.11.19",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
+    "cypress": "^13.14.1",
+    "gatsby-cypress": "^3.13.1",
+    "start-server-and-test": "^2.0.5",
     "typescript": "^5.3.3"
   }
 }
