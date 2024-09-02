@@ -18,6 +18,6 @@ export const menuItems: MenuItemType[] = [
 ];
 
 export const moreMenuItems: MenuItemType[] = [
-	{ icon: <SettingsIcon />, href: "/settings-profile", label: "設定" },
+	{ icon: <SettingsIcon />, href: "/settings", label: "設定" },
 	{ icon: <HelpIcon />, href: "/help", label: "ヘルプ" }
 ];
