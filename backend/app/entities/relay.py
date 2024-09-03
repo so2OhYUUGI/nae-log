@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String
 import strawberry
 from pydantic import BaseModel
+from typing import Optional
 
 from app.db.base_class import Base
 
@@ -36,9 +37,17 @@ class RelayInDBBase(RelayBase):
 
 # Strawberry GraphQL Schema
 @strawberry.type
-class RelaySchema:
+class RelayType:
     id: int
     port: int
     relay_type: str
-    description: str
+    description: Optional[str]
+    field_id: int
+    status: Optional[str]
+
+@strawberry.input
+class RelayInput:
+    port: int
+    relay_type: str
+    description: Optional[str]
     field_id: int

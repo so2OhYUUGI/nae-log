@@ -2,8 +2,7 @@
 import strawberry
 from sqlalchemy.orm import Session
 from app.db.session import SessionLocal
-from app.entities.relay import Relay
-from app.graphql.types.relay import RelayType, RelayInput
+from app.entities.relay import Relay, RelayType, RelayInput
 
 @strawberry.type
 class RelayMutation:
