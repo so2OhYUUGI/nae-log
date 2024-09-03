@@ -35,13 +35,6 @@ class FieldInDBBase(FieldBase):
 
 # Strawberry GraphQL Schema
 @strawberry.type
-class FieldSchema:
-    id: int
-    name: str
-    location: str
-    created_at: datetime
-
-@strawberry.type
 class FieldType:
     id: int
     name: str
