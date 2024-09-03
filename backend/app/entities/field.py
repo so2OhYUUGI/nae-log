@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime
 import strawberry
+from typing import Optional
 from pydantic import BaseModel
 from datetime import datetime
 
@@ -39,3 +40,15 @@ class FieldSchema:
     name: str
     location: str
     created_at: datetime
+
+@strawberry.type
+class FieldType:
+    id: int
+    name: str
+    location: Optional[str]
+    created_at: datetime
+
+@strawberry.input
+class FieldInput:
+    name: str
+    location: Optional[str]

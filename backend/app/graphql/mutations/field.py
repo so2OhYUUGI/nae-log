@@ -1,7 +1,6 @@
 import strawberry
 from app.db.session import SessionLocal
-from app.entities.field import Field
-from app.graphql.types.field import FieldType, FieldInput
+from app.entities.field import Field, FieldType, FieldInput
 
 @strawberry.type
 class FieldMutation:

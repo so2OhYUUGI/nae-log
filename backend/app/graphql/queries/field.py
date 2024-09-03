@@ -1,8 +1,7 @@
 import strawberry
 from typing import List, Optional
 from app.db.session import SessionLocal
-from app.entities.field import Field
-from app.graphql.types.field import FieldType
+from app.entities.field import Field, FieldType
 
 @strawberry.type
 class FieldQuery:
