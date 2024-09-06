@@ -52,3 +52,11 @@ class AutomationScheduleSchema:
     active: bool
     next_run_time: Optional[datetime]
     action: Optional[str]
+
+@strawberry.input
+class AutomationScheduleInput:
+    field_id: int
+    relay_id: int
+    time: str  # "HH:MM" format
+    action: str  # "on" or "off"
+    active: Optional[bool] = True

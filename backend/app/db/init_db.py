@@ -22,6 +22,8 @@ def init_db(recreate: bool = False):
     """
     データベースの初期化を行う関数。
     recreate: True の場合、既存のデータを削除して再作成。
+
+    データベース用のフォルダがないときはsqlite3ファイルの作成に失敗する。要対応
     """
     if recreate:
         Base.metadata.drop_all(bind=engine)  # 既存のテーブルを削除
