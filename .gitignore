@@ -11,4 +11,6 @@ backend/.db/
 
 .env
 .env.*
-!.env*.sample
+!.env.*.sample
+
+.DS_Store

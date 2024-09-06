@@ -1,7 +1,10 @@
+// src/pages/lamp.tsx
 import React from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import Button from "@mui/material/Button";
 import axios from "axios";
+
+import Layout from '../components/Layout';
 
 const queryClient = new QueryClient();
 
@@ -23,7 +26,7 @@ const TestButton: React.FC = () => {
   };
 
   return (
-    <>
+    <Layout>
       <Button
         variant="contained"
         color="primary"
@@ -38,7 +41,7 @@ const TestButton: React.FC = () => {
       >
         Turn Off
       </Button>
-    </>
+    </Layout>
   );
 };
 

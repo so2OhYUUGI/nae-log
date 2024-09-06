@@ -1,49 +1,48 @@
-import * as React from "react"
-import { Link, HeadFC, PageProps } from "gatsby"
+// src/pages/404.tsx
+import React from 'react';
+import { Container, Box, Typography, Button } from '@mui/material';
+import Layout from '../components/Layout';
+import { Link } from 'gatsby';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
-const pageStyles = {
-  color: "#232129",
-  padding: "96px",
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-}
-const headingStyles = {
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 320,
-}
-
-const paragraphStyles = {
-  marginBottom: 48,
-}
-const codeStyles = {
-  color: "#8A6534",
-  padding: 4,
-  backgroundColor: "#FFF4DB",
-  fontSize: "1.25rem",
-  borderRadius: 4,
-}
-
-const NotFoundPage: React.FC<PageProps> = () => {
+const NotFoundPage = () => {
   return (
-    <main style={pageStyles}>
-      <h1 style={headingStyles}>Page not found</h1>
-      <p style={paragraphStyles}>
-        Sorry 😔, we couldn’t find what you were looking for.
-        <br />
-        {process.env.NODE_ENV === "development" ? (
-          <>
-            <br />
-            Try creating a page in <code style={codeStyles}>src/pages/</code>.
-            <br />
-          </>
-        ) : null}
-        <br />
-        <Link to="/">Go home</Link>.
-      </p>
-    </main>
-  )
-}
+    <Container maxWidth="sm">
+      <Box
+        py={10}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        bgcolor="#fef3e7" // 柔らかいオレンジ色の背景
+        borderRadius="12px"
+        textAlign="center"
+      >
+        <SentimentVeryDissatisfiedIcon style={{ fontSize: 100, color: '#ffa726' }} />
+        <Typography variant="h4" component="h1" gutterBottom style={{ fontFamily: '"Comic Sans MS", cursive, sans-serif', color: '#ff7043' }}>
+          Oops! Page not found.
+        </Typography>
+        <Typography variant="body1" gutterBottom style={{ fontSize: '1.25rem', color: '#ff7043' }}>
+          ごめんなさい、探しているページが見つかりません。
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/"
+          style={{
+            backgroundColor: '#ff7043',
+            borderRadius: '20px',
+            fontWeight: 'bold',
+            padding: '10px 20px',
+            textTransform: 'none'
+          }}
+        >
+          トップページに戻る
+        </Button>
+      </Box>
+    </Container>
+  );
+};
 
-export default NotFoundPage
-
-export const Head: HeadFC = () => <title>Not found</title>
+export default NotFoundPage;
