@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
-from app.entities.schedule import ScheduleBase as ScheduleModel, ScheduleCreate, ScheduleUpdate
+from app.entities.automation_schedule import AutomationScheduleBase as ScheduleModel, AutomationScheduleCreate, AutomationScheduleUpdate
 from app.crud.schedule import get_schedules_by_relay, create_schedule, update_schedule
 from app.db.session import SessionLocal
 
@@ -21,9 +21,9 @@ def read_schedules_by_relay(relay_id: int, db: Session = Depends(get_db)):
     return schedules
 
 @router.post("/schedules/", response_model=ScheduleModel)
-def create_new_schedule(schedule: ScheduleCreate, db: Session = Depends(get_db)):
+def create_new_schedule(schedule: AutomationScheduleCreate, db: Session = Depends(get_db)):
     return create_schedule(db=db, schedule=schedule)
 
 @router.put("/schedules/{id}", response_model=ScheduleModel)
-def update_existing_schedule(id: int, schedule: ScheduleUpdate, db: Session = Depends(get_db)):
+def update_existing_schedule(id: int, schedule: AutomationScheduleUpdate, db: Session = Depends(get_db)):
     return update_schedule(db=db, schedule=schedule, schedule_id=id)

@@ -1,22 +1,16 @@
 # app/main.py
 from contextlib import asynccontextmanager
-
 from fastapi import FastAPI
-from fastapi.routing import APIRoute
-from fastapi.staticfiles import StaticFiles
-from starlette.middleware.cors import CORSMiddleware
-
 from app.core.gpio import server_run_led
 from app.core.scheduler import scheduler
-
+from app.db.session import SessionLocal
+from app.entities.automation_schedule import AutomationScheduleBase
+from app.utils.relay_utils import get_relay_action  # 追加: get_relay_actionを使用
+from config import PUBLIC_PATH
 from app.restapi.main import api_router
 from app.graphql.main import graphql_app
-
-from app.core.scheduler import scheduler
-from app.db.session import SessionLocal
-from app.entities.schedule import Schedule
-
-from config import PUBLIC_PATH
+from fastapi.staticfiles import StaticFiles
+from starlette.middleware.cors import CORSMiddleware
 
 
 @asynccontextmanager
@@ -27,18 +21,23 @@ async def lifespan(app: FastAPI):
     # データベースからスケジュールを復元
     session = SessionLocal()
     try:
-        schedules = session.query(Schedule).all()
+        schedules = session.query(AutomationScheduleBase).all()
         for schedule in schedules:
             if schedule.active:
-                # スケジュールを復帰
+                # アクションを取得（on/off アクションに基づいて）
+                job_function = get_relay_action(schedule.action)
+                
+                # スケジュールを復元
                 scheduler.add_job(
-                    id=schedule.job_id,
-                    name=schedule.name,
+                    job_function,  # 追加: アクション関数を渡す
                     trigger='cron',
                     cron=schedule.cron,
-                    next_run_time=schedule.next_run_time,
+                    id=schedule.job_id,
+                    name=schedule.name,
+                    next_run_time=schedule.next_run_time or 'now',
+                    args=[schedule.relay_id]  # リレーIDをアクションに渡す
                 )
-
+                print(f"Restored schedule: {schedule.name}")
     except Exception as e:
         print(f"Error loading schedules: {e}")
     finally:
@@ -50,7 +49,7 @@ async def lifespan(app: FastAPI):
     print('###***--- naelog server shutdown ---***###')
 
 
-def custom_generate_unique_id(route: APIRoute) -> str:
+def custom_generate_unique_id(route):
     return f"{route.tags[0]}-{route.name}"
 
 app = FastAPI(
@@ -60,8 +59,9 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# CORS設定
 origins = [
-    "http://localhost:8000",  # 本番環境時は削除してください
+    "http://localhost:8000",  # 本番環境では削除
 ]
 
 app.add_middleware(
@@ -72,12 +72,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# APIルーターとGraphQLルーターの追加
+# APIルーターとGraphQLルーターを追加
 app.include_router(api_router, prefix="/api")
 app.include_router(graphql_app, prefix="/graphql", tags=["graphql"])
-
-#app.add_route("/graphql", graphql_app)
-#app.add_websocket_route("/graphql", graphql_app)
 
 app.mount("/app", StaticFiles(directory=PUBLIC_PATH, html=True), name="app")
 
