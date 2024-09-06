@@ -14,7 +14,7 @@ from app.graphql.main import graphql_app
 
 from app.core.scheduler import scheduler
 from app.db.session import SessionLocal
-from app.entities.schedule import Schedule
+from app.entities.automation_schedule import AutomationScheduleBase
 
 from config import PUBLIC_PATH
 
@@ -27,7 +27,7 @@ async def lifespan(app: FastAPI):
     # データベースからスケジュールを復元
     session = SessionLocal()
     try:
-        schedules = session.query(Schedule).all()
+        schedules = session.query(AutomationScheduleBase).all()
         for schedule in schedules:
             if schedule.active:
                 # スケジュールを復帰

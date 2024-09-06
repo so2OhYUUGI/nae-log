@@ -2,19 +2,19 @@
 import strawberry
 from typing import List, Optional
 from app.db.session import SessionLocal
-from app.entities.schedule import Schedule as ScheduleModel, ScheduleSchema
+from app.entities.automation_schedule import AutomationScheduleBase, AutomationScheduleSchema  # 修正
 from sqlalchemy.orm import Session
 
 @strawberry.type
 class ScheduleQuery:
     @strawberry.field
-    def relay_schedule(self, id: int) -> Optional[ScheduleSchema]:
+    def relay_schedule(self, id: int) -> Optional[AutomationScheduleSchema]:
         db: Session = SessionLocal()
-        schedule = db.query(ScheduleModel).filter(ScheduleModel.id == id).first()
+        schedule = db.query(AutomationScheduleBase).filter(AutomationScheduleBase.id == id).first()
         return schedule
 
     @strawberry.field
-    def relay_all_schedules(self) -> List[ScheduleSchema]:
+    def relay_all_schedules(self) -> List[AutomationScheduleSchema]:
         db: Session = SessionLocal()
-        schedules = db.query(ScheduleModel).all()
+        schedules = db.query(AutomationScheduleBase).all()
         return schedules
